@@ -1,9 +1,9 @@
 import styled from 'styled-components/native';
+import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
   margin-right: 5px;
-  height: 300px;
-  width: 100%;
+  width: ${RFPercentage(24)}px;
   align-items: center;
   position: relative;
   margin-top: 20px;
@@ -11,42 +11,42 @@ export const Container = styled.View`
 `;
 
 export const Image = styled.Image`
-  width: 90%;
-  height: 200px;
+  width: ${RFPercentage(16)}px;
+  height: ${RFPercentage(16)}px;
   border-radius: 20px;
   z-index: 1;
 `;
 
 export const Content = styled.View`
-  width: 100%;
-  height: 240px;
-  margin-top: -150px;
+  margin-top: ${RFPercentage(-11)}px;
+  height: ${RFPercentage(30)}px;
+  width: ${RFPercentage(20)}px;
   border-radius: 20px;
   background-color: #fff;
-  padding-left: 15px;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const Title = styled.Text`
   font-family: 'Poppins_500Medium';
-  font-size: 21px;
-  margin-top: 160px;
+  font-size: ${RFValue(16)}px;
+  margin-top: ${RFPercentage(12)}px;
+  margin-left: 5px;
 `;
 
 export const Price = styled.Text`
   font-family: 'Poppins_700Bold';
-  font-size: 25px;
+  margin: ${RFPercentage(1)}px 0;
+  font-size: ${RFValue(19)}px;
   color: #F28705;
 `;
 
 export const CartContainer = styled.TouchableOpacity`
-  position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 40px;
   background-color: #034C8C;
-  bottom: 0;
-  right: 0;
   justify-content: center;
   align-items: center;
-  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 `;

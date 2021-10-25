@@ -27,8 +27,9 @@ const Home: React.FC = () => {
     <Container>
       <FlatList 
         data={products}
+        numColumns={2}
+        columnWrapperStyle={{justifyContent: 'space-between'}}
         keyExtractor={(item) => item.id}
-        showsVerticalScrollIndicator={false}
         renderItem={({item}) => (
           <ProductCard 
           name={item.name}
