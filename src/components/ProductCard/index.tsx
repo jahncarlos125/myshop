@@ -3,8 +3,11 @@ import { Text } from 'react-native';
 import { Product } from '../../interfaces';
 import { CartContainer, Container, Content, Image, Price, Title } from './styles';
 import { Ionicons } from '@expo/vector-icons';
+import { useApp } from '../../contexts/app';
 
-export function ProductCard({ name, image, price }: Partial<Product>){
+export function ProductCard({ product }: {product: Product}){
+  const { addProductInCart } = useApp();
+  const { image, name, price } = product;
   return (
     <Container>
       <Image 
@@ -13,7 +16,9 @@ export function ProductCard({ name, image, price }: Partial<Product>){
       <Content>
         <Title>{name}</Title>
         <Price>${price}</Price>
-        <CartContainer>
+        <CartContainer 
+          onPress={() => addProductInCart(product)}
+        >
           <Ionicons name="add-outline" size={28} color="#fff" />
         </CartContainer>
       </Content>

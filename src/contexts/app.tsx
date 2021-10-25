@@ -6,12 +6,14 @@ import api from "../services/api";
 interface AppContextData {
   products: Product[];
   cart: Product[];
+  addProductInCart: (product: Product) => void;
 }
 
 const AppContext = createContext<AppContextData>({} as AppContextData);
 
 const AppProvider: FC = ({ children }) => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [cart, setCart] = useState<Product[]>([]);
 
   useEffect(() => {
     async function loadData() {
@@ -26,8 +28,13 @@ const AppProvider: FC = ({ children }) => {
     loadData();
   }, [])
 
+  function addProductInCart(product: Product){
+    console.log("🚀 ~ file: app.tsx ~ line 32 ~ addProductInCart ~ product", product)
+    setCart((oldState) => [...oldState, product]);
+  }
+
   return (
-    <AppContext.Provider value={{products: products, cart: []}}>
+    <AppContext.Provider value={{products: products, cart: cart, addProductInCart: addProductInCart}}>
       { children }
     </AppContext.Provider>
   )
