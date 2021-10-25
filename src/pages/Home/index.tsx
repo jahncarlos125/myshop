@@ -4,6 +4,8 @@ import { FlatList, View } from 'react-native';
 import { TouchableOpacity, Text } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useApp } from '../../contexts/app';
+import ProductCard from '../../components/ProductCard';
+import { Container } from './styles';
 
 // import { Container } from './styles';
 
@@ -14,7 +16,7 @@ const Home: React.FC = () => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity>
-          <AntDesign name="shoppingcart" size={24} color="#0E1D47" />
+          <AntDesign name="shoppingcart" size={24} color="#FFF" />
         </TouchableOpacity>
       ),
       title: "Brito's shop"
@@ -22,13 +24,20 @@ const Home: React.FC = () => {
   })
 
   return (
-    <FlatList 
-      data={products}
-      keyExtractor={(item) => item.id}
-      renderItem={({item}) => (
-        <Text>{item.name}</Text>
-      )}
-    />
+    <Container>
+      <FlatList 
+        data={products}
+        keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
+        renderItem={({item}) => (
+          <ProductCard 
+          name={item.name}
+          image={item.image}
+          price={item.price}
+          />
+        )}
+      />
+    </Container>
   )
 }
 
