@@ -1,19 +1,20 @@
 import axios from "axios";
 import React, { createContext, FC, useContext, useEffect, useState } from "react";
-import { Product } from "../interfaces";
+import { Product, ProductCart } from "../interfaces";
 import api from "../services/api";
 
 interface AppContextData {
   products: Product[];
-  cart: Product[];
+  cart: ProductCart[];
   addProductInCart: (product: Product) => void;
+  removeProductInCart: (product: Product) => void;
 }
 
 const AppContext = createContext<AppContextData>({} as AppContextData);
 
 const AppProvider: FC = ({ children }) => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [cart, setCart] = useState<Product[]>([]);
+  const [cart, setCart] = useState<ProductCart[]>([]);
 
   useEffect(() => {
     async function loadData() {
@@ -29,12 +30,56 @@ const AppProvider: FC = ({ children }) => {
   }, [])
 
   function addProductInCart(product: Product){
-    console.log("🚀 ~ file: app.tsx ~ line 32 ~ addProductInCart ~ product", product)
-    setCart((oldState) => [...oldState, product]);
+    const index = cart.findIndex((item) => item.id === product.id);
+
+    if(index !== -1){
+      const updatedCart = cart.map(item => {
+        if(item.id === product.id){
+          return {
+            ...item,
+            quantity: item.quantity + 1,
+            stock: item.stock -1
+          }
+        }
+        return item;
+      });
+      setCart(updatedCart);
+    } else {
+      setCart((oldState) => [...oldState, {
+        ...product,
+        quantity: 1,
+        stock: product.stock -1
+      }])
+    }
+  }
+
+  function removeProductInCart(product: Product){
+    const index = cart.findIndex((item) => item.id === product.id);
+
+    if(cart[index].quantity === 1){
+      setCart(cart.filter((item) => item.id !== product.id))
+    } else {
+      const updatedCart = cart.map(item => {
+        if(item.id === product.id){
+          return {
+            ...item,
+            quantity: item.quantity - 1,
+            stock: item.stock + 1
+          }
+        }
+        return item;
+      });
+      setCart(updatedCart)
+    }
   }
 
   return (
-    <AppContext.Provider value={{products: products, cart: cart, addProductInCart: addProductInCart}}>
+    <AppContext.Provider value={{
+      products,
+      cart,
+      addProductInCart,
+      removeProductInCart
+    }}>
       { children }
     </AppContext.Provider>
   )

@@ -41,7 +41,7 @@ export const Price = styled.Text`
   color: #F28705;
 `;
 
-export const CartContainer = styled.TouchableOpacity`
+export const CartAddContainer = styled.TouchableOpacity`
   width: 100%;
   height: 40px;
   background-color: #034C8C;
@@ -49,4 +49,46 @@ export const CartContainer = styled.TouchableOpacity`
   align-items: center;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
+`;
+
+export const CartContainer = styled.View`
+  width: 100%;
+  height: 40px;
+  background-color: #034C8C;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  flex-direction: row;
+  justify-content: space-around;
+`;
+
+export const CartLeft = styled.TouchableOpacity`
+  flex:1;
+  align-items: center;
+  justify-content: center;
+  background-color: #f34336;
+  height: 100%;
+  border-bottom-left-radius: 20px;
+`;
+
+export const CartQuantityContainer = styled.View`
+  background-color:#FFF;
+  flex: 2;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+`;
+
+export const CartQuantityText = styled.Text`
+  color: #034C8C;
+  font-family: 'Poppins_700Bold';
+  font-size: ${RFValue(16)}px;
+`;
+
+export const CartRight = styled.TouchableOpacity`
+  flex: 1;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
 `;

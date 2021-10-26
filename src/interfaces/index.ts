@@ -6,3 +6,7 @@ export interface Product {
   image: string;
   stock: number;
 };
+
+export interface ProductCart extends Product {
+  quantity: number;
+}
