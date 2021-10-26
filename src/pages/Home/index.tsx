@@ -8,14 +8,13 @@ import { Container, CartBtnContainer, CartIcon, Badge, BadgeText } from './style
 
 // import { Container } from './styles';
 
-const Home: React.FC = () => {
-  const navigation = useNavigation();
+function Home({ navigation }) {
   const { products, cart } = useApp();
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <CartBtnContainer>
+        <CartBtnContainer onPress={() => navigation.navigate('cart')}>
           {cart.length > 0 && (
             <Badge>
               <BadgeText>{cart.length}</BadgeText>
@@ -33,6 +32,7 @@ const Home: React.FC = () => {
       <FlatList 
         data={products}
         numColumns={2}
+        showsVerticalScrollIndicator={false}
         columnWrapperStyle={{justifyContent: 'space-between'}}
         keyExtractor={(item) => item.id}
         renderItem={({item}) => (

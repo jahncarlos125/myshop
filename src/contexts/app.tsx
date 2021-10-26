@@ -8,6 +8,7 @@ interface AppContextData {
   cart: ProductCart[];
   addProductInCart: (product: Product) => void;
   removeProductInCart: (product: Product) => void;
+  total: number;
 }
 
 const AppContext = createContext<AppContextData>({} as AppContextData);
@@ -15,6 +16,7 @@ const AppContext = createContext<AppContextData>({} as AppContextData);
 const AppProvider: FC = ({ children }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [cart, setCart] = useState<ProductCart[]>([]);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     async function loadData() {
@@ -53,6 +55,18 @@ const AppProvider: FC = ({ children }) => {
     }
   }
 
+  useEffect(() => {
+    if(cart.length > 0){
+      let totalValue = 0;
+      cart.forEach((item) => {
+        const value = Number(item.price) * item.quantity;
+        totalValue = totalValue + value;
+      })
+
+      setTotal(totalValue);
+    }
+  }, [cart])
+
   function removeProductInCart(product: Product){
     const index = cart.findIndex((item) => item.id === product.id);
 
@@ -78,7 +92,8 @@ const AppProvider: FC = ({ children }) => {
       products,
       cart,
       addProductInCart,
-      removeProductInCart
+      removeProductInCart,
+      total
     }}>
       { children }
     </AppContext.Provider>

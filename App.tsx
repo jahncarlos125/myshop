@@ -12,6 +12,7 @@ import {
   Poppins_700Bold
 } from '@expo-google-fonts/poppins';
 import { StatusBar } from 'expo-status-bar';
+import Cart from './src/pages/Cart';
 
 const Stack = createNativeStackNavigator();
 
@@ -38,9 +39,11 @@ export default function App() {
             headerTitleStyle: {
               fontFamily: 'Poppins_500Medium'
             },
+            animation: 'slide_from_right'
           }}
           >
           <Stack.Screen name="home" component={Home} />
+          <Stack.Screen name="cart" component={Cart} />
         </Stack.Navigator>
       </AppProvider>
       <StatusBar style="light" />
