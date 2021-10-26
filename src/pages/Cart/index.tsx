@@ -5,7 +5,7 @@ import { FlatList, Text } from 'react-native';
 import ProductCart from '../../components/ProductCart';
 
 function Cart({ navigation }){
-  const { cart, total } = useApp();
+  const { cart, total, currencyFormat } = useApp();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -26,7 +26,7 @@ function Cart({ navigation }){
         <Footer>
           <TotalContainer>
             <TotalLabel>Total</TotalLabel>
-            <TotalValue>${total}</TotalValue>
+            <TotalValue>{currencyFormat(total)}</TotalValue>
           </TotalContainer>
         </Footer>
       </Container>

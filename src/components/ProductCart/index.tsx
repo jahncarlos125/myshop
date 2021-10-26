@@ -16,14 +16,14 @@ import {
 import { ProductCart as ProductCartInterface } from '../../interfaces';
 
 function ProductCart({ product }: {product: ProductCartInterface}){
-  const {removeProductInCart, addProductInCart} = useApp();
+  const {removeProductInCart, addProductInCart, currencyFormat} = useApp();
 
   return (
     <CardContainer>
       <Image source={{uri: product.image}} />
       <InfoContainer>
         <Title>{product.name}</Title>
-        <Price>${(Number(product.price) * product.quantity)}</Price>
+        <Price>{currencyFormat((Number(product.price) * product.quantity))}</Price>
       </InfoContainer>
       <BtnContainer>
         <RemoveBtn onPress={() => removeProductInCart(product)}>

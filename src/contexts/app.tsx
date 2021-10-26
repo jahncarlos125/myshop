@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { createContext, FC, useContext, useEffect, useState } from "react";
 import { Product, ProductCart } from "../interfaces";
 import api from "../services/api";
@@ -9,6 +8,7 @@ interface AppContextData {
   addProductInCart: (product: Product) => void;
   removeProductInCart: (product: Product) => void;
   total: number;
+  currencyFormat: (num: number) => string;
 }
 
 const AppContext = createContext<AppContextData>({} as AppContextData);
@@ -87,13 +87,18 @@ const AppProvider: FC = ({ children }) => {
     }
   }
 
+  function currencyFormat(num: number) {
+    return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+  }
+
   return (
     <AppContext.Provider value={{
       products,
       cart,
       addProductInCart,
       removeProductInCart,
-      total
+      total,
+      currencyFormat
     }}>
       { children }
     </AppContext.Provider>
